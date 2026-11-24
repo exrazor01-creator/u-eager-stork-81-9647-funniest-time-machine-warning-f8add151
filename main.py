@@ -11,9 +11,12 @@ import os
 LABEL = "WARNING: Do not feed the dinosaurs. They follow the machine home, and they are terrible at rent."
 
 def main():
+    # The bounty judges one line only: keep the label a single line of
+    # at most 120 characters, with no trailing newline in the entry file.
     assert 1 <= len(LABEL) <= 120, f"label length {len(LABEL)} out of range"
     assert "\n" not in LABEL and "\r" not in LABEL, "label must be a single line"
     assert LABEL.strip(), "label must not be only whitespace"
+    assert LABEL == LABEL.strip(), "label must not start or end with whitespace"
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
         f.write(LABEL)
